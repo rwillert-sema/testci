@@ -10,6 +10,10 @@ variables:
   POSTGRES_USER: custom_user
   POSTGRES_PASSWORD: mysecretpassword
 
+services:
+  - postgres
+
+
 image: gradle:alpine
 
 before_script:
