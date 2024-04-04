@@ -1,0 +1,45 @@
+variables:
+  DEPLOY_ENVIRONMENT:
+    description: "Select the deployment target. Valid options are: 'dev', 'integration', 'prod'."
+    value: "dev"
+    options:
+      - "dev"
+      - "integration"
+      - "prod"
+  POSTGRES_DB: testuser
+  POSTGRES_USER: custom_user
+  POSTGRES_PASSWORD: mysecretpassword
+
+image: gradle:alpine
+
+before_script:
+  - GRADLE_USER_HOME="$(pwd)/.gradle"
+  - export GRADLE_USER_HOME
+
+build:
+  stage: build
+  script: gradle -p api --build-cache assemble
+  cache:
+    key: "$CI_COMMIT_REF_NAME"
+    policy: push
+    paths:
+      - build
+      - .gradle
+
+test:
+  stage: test
+  script: gradle -p api test
+  cache:
+    key: "$CI_COMMIT_REF_NAME"
+    policy: pull
+    paths:
+      - build
+      - .gradle
+
+deploy:
+  stage: deploy
+  script:
+    - echo "This job deploys something from the $CI_COMMIT_BRANCH branch to env $DEPLOY_ENVIRONMENT."
+  environment: $DEPLOY_ENVIRONMENT
+  when: manual
+
