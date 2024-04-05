@@ -50,4 +50,8 @@ deploy:
     - echo "This job deploys something from the $CI_COMMIT_BRANCH branch to env $DEPLOY_ENVIRONMENT."
   environment: $DEPLOY_ENVIRONMENT
   resource_group: $DEPLOY_ENVIRONMENT
+  #image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
+  #script:
+  #  - aws s3 ...
+  #  - aws create-deployment ...  
   when: manual
