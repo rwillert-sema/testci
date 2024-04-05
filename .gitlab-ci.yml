@@ -47,3 +47,7 @@ deploy:
   environment: $DEPLOY_ENVIRONMENT
   when: manual
 
+artifacts:
+  when: always
+  reports:
+    junit: build/test-results/test/**/TEST-*.xml
