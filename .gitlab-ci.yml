@@ -49,4 +49,5 @@ deploy:
   script:
     - echo "This job deploys something from the $CI_COMMIT_BRANCH branch to env $DEPLOY_ENVIRONMENT."
   environment: $DEPLOY_ENVIRONMENT
+  resource_group: $DEPLOY_ENVIRONMENT
   when: manual
