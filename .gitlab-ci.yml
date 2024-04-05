@@ -39,6 +39,10 @@ test:
     paths:
       - build
       - .gradle
+  artifacts:
+    when: always
+    reports:
+      junit: build/test-results/test/**/TEST-*.xml
 
 deploy:
   stage: deploy
@@ -46,8 +50,3 @@ deploy:
     - echo "This job deploys something from the $CI_COMMIT_BRANCH branch to env $DEPLOY_ENVIRONMENT."
   environment: $DEPLOY_ENVIRONMENT
   when: manual
-
-artifacts:
-  when: always
-  reports:
-    junit: build/test-results/test/**/TEST-*.xml
